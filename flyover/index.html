@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="northclerk-build" content="8b367c43c38899eb7cf8dd6a8e715c4de9c36d3cd149e46993577dcfc8d37017">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Course flyover video: a 50-second flight over your golf course</title>
+<meta name="description" content="A short flyover video of your golf course, built from public aerial photos and elevation data. No drone, no site visit. $249 one time.">
+<style>
+  :root {
+    --bg: #f7f8f4;
+    --paper: #ffffff;
+    --ink: #17241c;
+    --muted: #55635b;
+    --line: #d9dfd6;
+    --green: #2f6b3a;
+    --green-ink: #ffffff;
+    --green-soft: #e7f0e6;
+    --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #101713;
+      --paper: #172019;
+      --ink: #eef3ee;
+      --muted: #aab8ad;
+      --line: #2a3a2e;
+      --green: #7fcf8f;
+      --green-ink: #0d1a10;
+      --green-soft: #1c2d20;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--font); line-height: 1.55; }
+  a { color: var(--green); }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 20px; }
+  .top { padding: 22px 0 8px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .top .name { font-weight: 700; letter-spacing: 0.01em; text-decoration: none; color: var(--ink); font-size: 1.05rem; }
+  .top .by { color: var(--muted); font-size: 0.92rem; }
+  h1 { font-size: clamp(1.7rem, 4.2vw, 2.5rem); line-height: 1.15; margin: 18px 0 10px; letter-spacing: -0.01em; }
+  .lede { font-size: 1.12rem; color: var(--muted); margin: 0 0 22px; max-width: 640px; }
+  .player { background: #000; border-radius: 14px; overflow: hidden; border: 1px solid var(--line); }
+  .player video { display: block; width: 100%; height: auto; }
+  .caption { color: var(--muted); font-size: 0.92rem; margin: 10px 0 0; }
+  section { margin: 36px 0; }
+  h2 { font-size: 1.35rem; margin: 0 0 10px; }
+  p { margin: 0 0 12px; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 640px) { .cols { grid-template-columns: 1fr; } }
+  .card { background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 20px; }
+  .card h3 { margin: 0 0 6px; font-size: 1.05rem; }
+  .price { font-size: 1.9rem; font-weight: 700; margin: 4px 0 8px; }
+  .price small { font-size: 0.95rem; font-weight: 400; color: var(--muted); }
+  .btn { display: inline-block; background: var(--green); color: var(--green-ink); text-decoration: none; font-weight: 600; padding: 12px 18px; border-radius: 10px; }
+  .btn:hover { filter: brightness(1.05); }
+  ul { padding-left: 20px; margin: 0 0 12px; }
+  li { margin: 4px 0; }
+  .plain { background: var(--green-soft); border-radius: 14px; padding: 18px 20px; }
+  footer { border-top: 1px solid var(--line); margin-top: 48px; padding: 20px 0 36px; color: var(--muted); font-size: 0.92rem; }
+  footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <a class="name" href="/flyover/">Course flyover video</a>
+    <span class="by">a Northclerk product</span>
+  </div>
+
+  <h1>A 50-second flight over your golf course, for your website.</h1>
+  <p class="lede">Built from public aerial photos and elevation data. No drone, no site visit, no subscription. Here is the sample: Highland Park in Birmingham, holes 15 to 17.</p>
+
+  <div class="player">
+    <video controls preload="metadata" playsinline poster="/flyover/poster.jpg">
+      <source src="/demo/highland-park-flyover.mp4" type="video/mp4">
+      Your browser cannot play this video. <a href="/demo/highland-park-flyover.mp4">Download the sample (21 MB)</a>.
+    </video>
+  </div>
+  <p class="caption">Sample: Highland Park Golf Course, Birmingham, AL. An illustrative animation from public imagery, not drone footage. Unaffiliated with the course. 1080p, 50 seconds.</p>
+
+  <section>
+    <h2>What you get</h2>
+    <p>One MP4 file, 1080p, 45 to 60 seconds. It opens wide over the whole layout, flies three holes of your choice from tee to green with the hole number on screen, and ends on an overview. Use it as your website header, on Facebook or Instagram, or on the TV in the pro shop. A small credit line for the public imagery and map data stays on the video, the way you see it in the sample.</p>
+  </section>
+
+  <section class="cols">
+    <div class="card">
+      <h3>Course preview</h3>
+      <p class="price">$249 <small>one time</small></p>
+      <p>The 45 to 60 second clip above, with two rounds of changes to the hole choice and captions.</p>
+    </div>
+    <div class="card">
+      <h3>Every hole</h3>
+      <p class="price">$790 <small>one time</small></p>
+      <p>The preview plus one short clip per hole, 15 to 25 seconds each, for the hole pages on your site.</p>
+    </div>
+  </section>
+
+  <section class="plain">
+    <h2>How to get one</h2>
+    <p>Reply to the email you received, or write to <a href="mailto:michaelwichmann9+hello@gmail.com?subject=Course%20flyover">michaelwichmann9+hello@gmail.com</a> with your course name and the three holes you would pick. You see a draft before you pay anything, and I will give you a date when I take your three holes.</p>
+    <p><a class="btn" href="mailto:michaelwichmann9+hello@gmail.com?subject=Course%20flyover">Email us your three holes</a></p>
+  </section>
+
+  <section>
+    <h2>Said plainly</h2>
+    <ul>
+      <li>The ground shape comes from USGS 1 meter elevation data and the picture from USDA aerial photography. Trees and buildings lie flat, and close passes over greens look soft.</li>
+      <li>The imagery date varies by course; each clip shows its own date on screen. No yardages are shown.</li>
+      <li>This is a website and social clip, not a substitute for a drone shoot or a GPS yardage product.</li>
+      <li>No course logo or trademark goes into a clip, and we never claim a relationship with a course.</li>
+    </ul>
+  </section>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p><strong>Northclerk</strong> builds back-office help for owner-run businesses. <a href="/">northclerk.com</a> &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="mailto:michaelwichmann9+hello@gmail.com">michaelwichmann9+hello@gmail.com</a></p>
+  </div>
+</footer>
+</body>
+</html>
