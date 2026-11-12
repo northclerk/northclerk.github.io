@@ -1,0 +1,749 @@
+/* Northclerk marketing site. No external resources. System fonts only.
+   Look: the owner's own paperwork. Job sheets, printed emails, carbon stubs,
+   a price list, ruled lines, square corners, ink on paper with safety orange.
+   The only hand marks are pen marks: a ring on the summary and a tick on the reply. */
+
+:root {
+  --paper: #f3eee3;
+  --paper-2: #e8e0cf;
+  --sheet: #fffdf8;
+  --carbon: #fbefc0;
+  --kraft: #b98f57;
+  --kraft-edge: #8a6436;
+  --clip: #3b3f45;
+  --clip-hi: #8d939b;
+  --ink: #16181b;
+  --muted: #4f473b;
+  --rule: #16181b;
+  --line: #cdc2ae;
+  --field-line: #5b5346;
+  --orange: #ff6b00;
+  --orange-ink: #16181b;
+  --orange-text: #a33b00;
+  --pen: #a33b00;
+  --btn-edge: #16181b;
+  --band-ink: #16181b;
+  --band-line: #3c3f44;
+  --on-ink: #f3eee3;
+  --on-ink-muted: #d3cbbd;
+  --accent: #ff6b00;
+  --accent-ink: #f3eee3;
+  --error: #b42318;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: Bahnschrift, "DIN Condensed", "DIN Alternate", "Roboto Condensed", "Arial Narrow", sans-serif-condensed, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", "Cascadia Mono", Consolas, "Roboto Mono", Menlo, monospace;
+  --header-h: 64px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #141517;
+    --paper-2: #1b1c1f;
+    --sheet: #1f2124;
+    --carbon: #2f2a1a;
+    --kraft: #9a7848;
+    --kraft-edge: #c9a26b;
+    --clip: #9aa0a8;
+    --clip-hi: #d2d6db;
+    --ink: #f1ece2;
+    --muted: #bfb6a6;
+    --rule: #d9d2c5;
+    --line: #3c3f44;
+    --field-line: #9a917f;
+    --orange: #ff7a1a;
+    --orange-ink: #141517;
+    --orange-text: #ff9b55;
+    --pen: #ff9b55;
+    --btn-edge: #8f3d00;
+    --band-ink: #0a0b0c;
+    --band-line: #3c3f44;
+    --on-ink: #f1ece2;
+    --on-ink-muted: #c9c1b3;
+    --accent: #ff7a1a;
+    --accent-ink: #141517;
+    --error: #ff9d92;
+  }
+  .board {
+    --sheet: #efe9dc; --carbon: #eedfa6; --ink: #16181b; --muted: #4f473b; --rule: #16181b;
+    --line: #cdc2ae; --field-line: #5b5346; --pen: #a33b00; --kraft: #a57d47; --kraft-edge: #6e4f28;
+  }
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--header-h) + 8px);
+}
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-variant-numeric: tabular-nums;
+}
+
+img, svg, iframe { max-width: 100%; }
+main { flex: 1 0 auto; }
+
+h1, h2, h3 { margin: 0 0 0.6em; line-height: 1.1; text-wrap: balance; }
+h1 {
+  font-family: var(--font-display);
+  font-stretch: 75%;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  font-size: clamp(2.9rem, 6.6vw, 5rem); line-height: 1.02;
+}
+/* Section heads: sentence case, bold, one step under the display line. */
+h2 { font-size: clamp(1.6rem, 3.2vw, 2.25rem); font-weight: 800; line-height: 1.12; letter-spacing: -0.015em; }
+h3 { font-size: 1.12rem; font-weight: 800; letter-spacing: -0.005em; }
+p { margin: 0 0 1em; }
+/* No one-word last lines in running text. */
+p, li, figcaption, summary { text-wrap-style: pretty; }
+p:last-child { margin-bottom: 0; }
+
+a { color: var(--ink); text-decoration-color: var(--orange); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+a:hover { text-decoration-thickness: 4px; }
+
+:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+.skip-link {
+  position: absolute; left: 16px; top: -100px; z-index: 100;
+  background: var(--orange); color: var(--orange-ink);
+  padding: 12px 16px; font-weight: 700; text-decoration: none;
+}
+.skip-link:focus { top: 8px; }
+
+.container { width: min(100% - 32px, 1160px); margin-inline: auto; }
+.container.narrow { max-width: 760px; }
+
+/* Small uppercase labels, the way a printed form labels its boxes. */
+.eyebrow, .for-label, .who-label, .terms-label, .sheet-label, .stub-label, .cal-title, .band-kicker,
+.hk, .cal-head, .features-label, .start-note, .stamp {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.eyebrow { display: block; margin: 0 0 0.9rem; color: var(--orange-text); }
+
+/* ---------- Header ---------- */
+
+.site-header {
+  position: sticky; top: 0; z-index: 50;
+  background: var(--paper);
+  border-bottom: 3px solid var(--rule);
+}
+.header-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 4px 16px; min-height: var(--header-h);
+}
+.brand { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; color: var(--ink); text-decoration: none; }
+.brand-name {
+  font-family: var(--font-display); font-stretch: 75%; font-weight: 700;
+  font-size: 1.55rem; text-transform: uppercase; letter-spacing: 0.02em;
+}
+.site-nav ul { display: flex; align-items: center; flex-wrap: wrap; gap: 2px; list-style: none; margin: 0; padding: 0; }
+.site-nav a:not(.btn) {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px;
+  color: var(--ink); font-weight: 650; text-decoration: none;
+}
+.site-nav a:not(.btn):hover { text-decoration: underline; text-decoration-color: var(--orange); text-decoration-thickness: 3px; }
+.nav-toggle { display: none; }
+
+@media (max-width: 820px) {
+  .site-nav { width: 100%; }
+  .site-nav ul { margin-bottom: 8px; }
+  .js .nav-toggle {
+    display: inline-flex; align-items: center; gap: 8px; min-height: 44px; min-width: 44px; padding: 0 14px;
+    font: inherit; font-weight: 700; color: var(--ink); background: transparent;
+    border: 2px solid var(--rule); border-radius: 0; cursor: pointer;
+  }
+  .js .nav-toggle:hover { background: var(--paper-2); }
+  .js .site-nav {
+    display: none; position: absolute; left: 0; right: 0; top: 100%;
+    padding: 8px 16px 16px; background: var(--paper); border-bottom: 3px solid var(--rule);
+  }
+  .js .site-nav.is-open { display: block; }
+  .js .site-nav ul { flex-direction: column; align-items: stretch; gap: 0; margin: 0; }
+  .js .site-nav li + li { border-top: 1px solid var(--line); }
+  .js .site-nav a:not(.btn) { min-height: 48px; padding: 0 4px; width: 100%; }
+  .js .site-nav .btn { width: 100%; margin-top: 10px; }
+}
+
+/* ---------- Buttons: square, flat, safety orange ---------- */
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 50px; padding: 0 1.4rem;
+  font: inherit; font-weight: 800; line-height: 1.2; text-align: center; text-decoration: none;
+  border: 2px solid var(--rule); border-radius: 0; cursor: pointer;
+}
+.btn-small { min-height: 42px; padding: 0 1rem; }
+.btn-primary { background: var(--orange); color: var(--orange-ink); border-color: var(--btn-edge); }
+.btn-primary:hover { filter: brightness(1.06); }
+.btn-primary:active { filter: brightness(0.94); }
+.btn-secondary { background: transparent; color: var(--ink); }
+.btn-secondary:hover { background: var(--paper-2); }
+.btn-big { min-height: 58px; padding: 0 1.6rem; font-size: 1.2rem; }
+.btn-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 2rem; }
+
+/* ---------- Sections ---------- */
+
+.section { padding-block: clamp(3rem, 7vw, 5.5rem); }
+.section h2 { max-width: 24ch; }
+.page { padding-block: clamp(3rem, 8vw, 5rem); }
+.page h1 { font-size: clamp(2.4rem, 6vw, 3.4rem); margin-bottom: 1.25rem; }
+
+/* Every section after the setup list opens on a heavy rule, like the next block of a form. */
+#features > .container, #pricing > .container, #faq > .container, #trucking > .container, #more > .container {
+  border-top: 4px solid var(--rule);
+  padding-top: clamp(1.75rem, 4vw, 2.5rem);
+}
+#features, #pricing, #faq, #trucking, #more { padding-block: clamp(2.5rem, 6vw, 4.5rem) 0; }
+#more { padding-bottom: clamp(3rem, 6vw, 4.5rem); }
+
+/* Printed email headers: From / To / Sent rows. Used on the summary and in the example. */
+.mail-head { margin: 0 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+.mail-head p { display: grid; grid-template-columns: 3.4rem minmax(0, 1fr); gap: 8px; margin: 0; padding: 1px 0; line-height: 1.4; }
+.hk { color: var(--muted); padding-top: 0.15em; }
+.hv { font-family: var(--font-mono); font-size: 0.86rem; font-weight: 700; min-width: 0; }
+
+/* ==========================================================================
+   Hero: the claim on the left, the evening summary as a printed email
+   on a clipboard on the right.
+   ========================================================================== */
+
+.hero { padding-block: clamp(1.75rem, 5vw, 3.5rem) clamp(2.5rem, 5vw, 3.5rem); }
+.hero-grid {
+  display: grid; gap: 36px 56px;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+}
+@media (min-width: 960px) {
+  .hero-grid { grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr); }
+  .hero-copy { padding-top: 1.25rem; }
+}
+
+.hero h1 { max-width: 16ch; margin-bottom: 0.4em; }
+.lead { max-width: 42ch; margin: 0; color: var(--ink); font-size: clamp(1.1rem, 2.2vw, 1.3rem); line-height: 1.45; }
+
+/* "For" is a filled-in field on the order, not a row of tags. */
+.for-row {
+  display: grid; gap: 8px;
+  max-width: 560px;
+  margin-top: clamp(1.25rem, 3vw, 1.75rem);
+  padding: 12px 0;
+  border-top: 2px solid var(--rule);
+  border-bottom: 1px solid var(--line);
+}
+.for-label { margin: 0; color: var(--muted); }
+.trades { display: flex; flex-wrap: wrap; gap: 6px 18px; list-style: none; margin: 0; padding: 0; }
+.trades li {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-weight: 800; font-size: 1rem; line-height: 1.3; white-space: nowrap;
+}
+/* Dot separators sit in the gap; a dot that would start a wrapped line falls left of the list and is clipped. */
+.trades { gap: 6px 16px; clip-path: inset(-8px -8px -8px 0); }
+.trades li { position: relative; }
+.trades li::before {
+  content: ""; position: absolute; left: -10.5px; top: 50%; margin-top: -2.5px;
+  width: 5px; height: 5px; border-radius: 50%; background: var(--muted);
+}
+
+.cta-block { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; margin-top: clamp(1.5rem, 3.5vw, 2.25rem); }
+.cta-note {
+  margin: 0; color: var(--ink);
+  font-family: var(--font-mono); font-size: 0.85rem; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase;
+}
+.cross-link { margin-top: 1.5rem; color: var(--muted); font-size: 1rem; }
+.cross-link a { font-weight: 700; }
+
+/* The clipboard. Square to the page, nothing tilted. */
+.hero-visual { margin: 0; min-width: 0; }
+.board {
+  position: relative;
+  padding: 34px 14px 14px;
+  background: var(--kraft);
+  border: 2px solid var(--kraft-edge);
+  border-radius: 10px;
+}
+.board-clip {
+  position: absolute; left: 50%; top: -12px;
+  width: 132px; height: 34px; margin-left: -66px;
+  background: var(--clip);
+  border-top: 5px solid var(--clip-hi);
+  border-radius: 6px 6px 3px 3px;
+}
+.board p { margin: 0; }
+.sheet {
+  padding: 16px 18px 20px;
+  background: var(--sheet);
+  color: var(--ink);
+  border: 1px solid var(--kraft-edge);
+  font-size: 0.95rem; line-height: 1.35;
+}
+.sheet .mail-head { border-bottom: 4px double var(--rule); margin-bottom: 12px; }
+.board .mail-head p { margin: 0; }
+.sheet-subject {
+  font-family: var(--font-display); font-stretch: 75%; font-weight: 700;
+  font-size: 1.45rem; line-height: 1.05; text-transform: uppercase;
+  margin-bottom: 12px !important;
+}
+.sheet-block + .sheet-block { margin-top: 10px; }
+.sheet-label { padding: 3px 8px; background: var(--rule); color: var(--sheet); }
+.sheet-row {
+  display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 10px; align-items: center;
+  padding: 7px 8px; border-bottom: 1px solid var(--line);
+}
+.sheet-when { font-family: var(--font-mono); font-weight: 700; font-size: 0.88rem; white-space: nowrap; }
+
+/* The one hand mark on the summary: a pen ring around what needs the owner. */
+.sheet-block.sheet-needs { position: relative; margin-top: 22px; }
+.sheet-needs .sheet-row { border-bottom: 0; }
+.ring {
+  position: absolute; top: -11px; left: -10px;
+  width: calc(100% + 20px); max-width: none; height: calc(100% + 20px);
+  overflow: visible; pointer-events: none;
+}
+.ring path { fill: none; stroke: var(--pen); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+
+.stub {
+  display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 2px 14px; align-items: baseline;
+  padding: 12px 16px 14px;
+  background: var(--carbon);
+  color: var(--ink);
+  border: 1px solid var(--kraft-edge);
+  border-top: 2px dashed var(--rule);
+  font-size: 0.92rem; line-height: 1.35;
+}
+.stub-label { grid-column: 1 / -1; margin-bottom: 4px !important; color: var(--ink); }
+.stub-when {
+  font-family: var(--font-display); font-stretch: 75%; font-weight: 700;
+  font-size: 1.5rem; line-height: 1; text-transform: uppercase; white-space: nowrap;
+}
+.stub-what strong { display: block; font-weight: 800; }
+
+.hero-visual figcaption { margin-top: 10px; color: var(--muted); font-size: 0.9rem; line-height: 1.4; }
+
+/* Who we are + what it will and will not do: the printed terms at the foot of the order. */
+.terms-wrap {
+  display: grid; gap: 0;
+  grid-template-columns: minmax(0, 1fr);
+  margin-top: clamp(2.25rem, 5vw, 3.5rem);
+  border-top: 4px solid var(--rule);
+  border-bottom: 2px solid var(--rule);
+}
+@media (min-width: 960px) {
+  .terms-wrap { grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.75fr); }
+  .terms { border-left: 2px solid var(--rule); padding-left: 24px; }
+  .who { padding-right: 24px; }
+}
+.who, .terms { padding-block: 16px 18px; }
+.who-label, .terms-label { margin: 0 0 8px; color: var(--muted); }
+.who-list, .mechanism { list-style: none; margin: 0; padding: 0; }
+.who-list li { padding: 8px 0; border-top: 1px solid var(--line); line-height: 1.4; }
+.who-list li:first-child { border-top: 0; padding-top: 0; }
+@media (max-width: 959px) {
+  .terms { border-top: 2px solid var(--rule); }
+}
+.mechanism { counter-reset: term; display: grid; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 700px) {
+  .mechanism { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 28px; }
+}
+.mechanism li {
+  counter-increment: term;
+  position: relative;
+  padding: 9px 0 9px 28px; border-top: 1px solid var(--line);
+  color: var(--muted); font-size: 1rem; line-height: 1.4;
+}
+.mechanism li::before { content: counter(term) "."; position: absolute; left: 0; font-family: var(--font-mono); font-weight: 700; color: var(--ink); }
+.mechanism strong { color: var(--ink); }
+@media (min-width: 700px) {
+  .mechanism li:nth-child(-n+2) { border-top: 0; padding-top: 0; }
+  .mechanism li:nth-child(-n+2)::before { top: 0; }
+}
+@media (max-width: 699px) {
+  .mechanism li:first-child { border-top: 0; padding-top: 0; }
+}
+
+/* ==========================================================================
+   The problem: a safety orange band, the questions stuck on a spike.
+   ========================================================================== */
+
+.band { padding-block: clamp(2.75rem, 7vw, 5rem); }
+.band-orange { background: var(--orange); color: var(--orange-ink); }
+.problem-grid {
+  display: grid; gap: 28px 56px;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+}
+@media (min-width: 900px) {
+  .problem-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 400px); }
+}
+.band-kicker { margin: 0 0 0.9rem; color: var(--orange-ink); font-size: 0.9rem; }
+.band-line {
+  max-width: 20ch; margin: 0;
+  font-family: var(--font-display); font-stretch: 75%; font-weight: 700; letter-spacing: 0;
+  font-size: clamp(2.1rem, 4.6vw, 3.4rem); line-height: 1;
+  color: var(--orange-ink);
+}
+.band-more {
+  max-width: 46ch; margin: 1.5rem 0 0; padding-top: 14px;
+  border-top: 3px solid var(--orange-ink);
+  color: var(--orange-ink); font-size: 1.12rem; font-weight: 650; line-height: 1.45;
+}
+.spike { display: block; width: 100%; max-width: 330px; height: auto; justify-self: center; color: #16181b; }
+.spike-pin { stroke: var(--orange-ink); stroke-width: 5; fill: none; }
+.spike-front { stroke-width: 4; }
+.spike-base { fill: var(--orange-ink); }
+.spike-hole { fill: var(--orange-ink); }
+.slip rect { fill: #fffdf8; stroke: var(--orange-ink); stroke-width: 2; }
+.slip text { fill: #16181b; font-family: var(--font-mono); font-size: 17px; font-weight: 700; }
+/* Wide screens: the line runs long and the spike sits at the right edge, so the band has no hole in it. */
+@media (min-width: 900px) {
+  .band-line { max-width: none; font-size: clamp(3rem, 5.1vw, 4.1rem); }
+  .spike { max-width: 400px; justify-self: end; }
+}
+
+/* ==========================================================================
+   Setup: a checklist on the form, not numbered circles.
+   ========================================================================== */
+
+.section-setup { padding-block: clamp(2.75rem, 6vw, 4rem) clamp(1rem, 3vw, 2rem); }
+.setup-grid { display: grid; gap: 20px 56px; grid-template-columns: minmax(0, 1fr); align-items: start; }
+@media (min-width: 900px) {
+  .setup-grid { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.6fr); }
+}
+.setup-grid h2 { margin: 0; max-width: 16ch; }
+.steps { counter-reset: step; list-style: none; margin: 0; padding: 0; border-top: 4px solid var(--rule); }
+.step {
+  counter-increment: step;
+  display: grid; grid-template-columns: 44px minmax(0, 1fr); column-gap: 14px;
+  padding: 16px 0;
+}
+.step + .step { border-top: 1px solid var(--line); }
+.step::before {
+  content: counter(step, decimal-leading-zero);
+  grid-row: 1 / span 2;
+  font-family: var(--font-mono); font-weight: 700; font-size: 1.05rem; line-height: 1.35;
+}
+.step h3 { grid-column: 2; margin-bottom: 0.25em; font-size: 1.15rem; }
+.step p { grid-column: 2; margin: 0; color: var(--muted); max-width: 56ch; }
+
+/* ==========================================================================
+   The example: one email in, the checked reply, the booked slot. The whole
+   loop in one frame, left to right on a wide screen, top to bottom on a phone.
+   ========================================================================== */
+
+.example-head { display: grid; gap: 14px; grid-template-columns: minmax(0, 1fr); }
+.example-head h2 { margin: 0; max-width: 18ch; }
+.example-head p { margin: 0; max-width: 40ch; color: var(--muted); font-size: 1.12rem; line-height: 1.45; }
+
+.loop { margin: clamp(1.75rem, 4vw, 2.5rem) 0 0; }
+.loop-tag { margin: 0 0 10px; color: var(--muted); font-size: 0.92rem; }
+.loop-row { display: grid; gap: 10px; grid-template-columns: minmax(0, 1fr); align-items: start; }
+@media (min-width: 980px) {
+  .loop-row { grid-template-columns: minmax(0, 1fr) 40px minmax(0, 1.32fr) 40px minmax(0, 0.78fr); gap: 0 10px; }
+}
+.loop-arrow { display: block; width: 40px; height: 24px; justify-self: center; align-self: center; }
+.loop-arrow path { fill: none; stroke: var(--ink); stroke-width: 3; stroke-linecap: square; }
+@media (max-width: 979px) { .loop-arrow { transform: rotate(90deg); margin-block: 2px; } }
+@media (min-width: 980px) { .loop-arrow { align-self: start; margin-top: 64px; } }
+
+.doc { min-width: 0; padding: 14px 16px 16px; background: var(--sheet); border: 2px solid var(--rule); font-size: 1rem; line-height: 1.5; }
+.doc p { margin: 0 0 0.6em; }
+.doc p:last-child { margin-bottom: 0; }
+.doc .mail-head p { margin: 0; line-height: 1.4; }
+.doc-out { background: var(--carbon); }
+.price-chip {
+  font-family: var(--font-mono); font-size: 0.86em; font-weight: 700; white-space: nowrap;
+  padding: 0 5px; background: var(--sheet); color: var(--ink);
+  border: 2px dotted var(--field-line);
+}
+
+/* The person's check, as a pen tick and a note, not a badge. */
+.doc .pen-check {
+  display: flex; align-items: center; gap: 8px;
+  margin-top: 14px; padding-top: 10px;
+  border-top: 1px dashed var(--field-line);
+  color: var(--pen); font-weight: 750; font-size: 1rem; line-height: 1.3;
+}
+.pen-check svg { flex: none; }
+.pen-check path { fill: none; stroke: var(--pen); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+
+/* The booked slot on a calendar day: hour lines, one block. */
+.doc-cal { padding-bottom: 14px; }
+@media (min-width: 980px) {
+  .doc-cal { align-self: stretch; display: flex; flex-direction: column; }
+}
+.cal-head { margin: 0 0 4px !important; color: var(--muted); }
+.cal-day {
+  margin: 0 0 6px !important; padding-bottom: 4px; border-bottom: 2px solid var(--rule);
+  font-family: var(--font-display); font-stretch: 75%; font-weight: 700; font-size: 1.5rem; line-height: 1; text-transform: uppercase;
+}
+/* Six hour rows from 1:00, labelled in the gutter; a dotted half-hour line in each. */
+.cal-grid { position: relative; display: grid; grid-template-rows: repeat(6, minmax(26px, 1fr)); flex: 1 1 auto; }
+.cal-grid > span { position: relative; border-bottom: 1px solid var(--line); }
+.cal-grid > span::before {
+  position: absolute; top: 4px; left: 0;
+  font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; line-height: 1; color: var(--muted);
+}
+.cal-grid > span::after { content: ""; position: absolute; left: 2.9rem; right: 0; top: 50%; border-top: 1px dotted var(--line); }
+.cal-grid > span:nth-child(1)::before { content: "1:00"; }
+.cal-grid > span:nth-child(2)::before { content: "2:00"; }
+.cal-grid > span:nth-child(3)::before { content: "3:00"; }
+.cal-grid > span:nth-child(4)::before { content: "4:00"; }
+.cal-grid > span:nth-child(5)::before { content: "5:00"; }
+.cal-grid > span:nth-child(6)::before { content: "6:00"; }
+.cal-booked {
+  position: absolute; top: 25%; left: 2.9rem; right: 0; height: auto; min-height: 25%;
+  margin: 0 !important; padding: 6px 10px;
+  background: var(--orange); color: var(--orange-ink);
+  border-left: 5px solid var(--orange-ink);
+  font-weight: 800; font-size: 0.95rem; line-height: 1.3;
+}
+.cal-booked b { font-family: var(--font-mono); margin-right: 4px; }
+.cal-booked span { display: block; font-weight: 600; }
+/* Phone width: the day shows only the booked slot, no empty hour lines. */
+@media (max-width: 979px) {
+  .cal-grid { display: block; }
+  .cal-grid > span { display: none; }
+  .cal-booked { position: static; min-height: 0; height: auto; }
+}
+
+/* What the front desk does: a ruled list under the frame, labelled like a form row. */
+.features { display: grid; gap: 0; grid-template-columns: minmax(0, 1fr); margin-top: clamp(2rem, 5vw, 3rem); border-top: 2px solid var(--rule); }
+.features-label { margin: 0; padding: 12px 0 4px; color: var(--muted); }
+@media (min-width: 640px) {
+  .features { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .features-label { grid-column: 1 / -1; }
+}
+@media (min-width: 1040px) {
+  .features { grid-template-columns: 9.5rem repeat(4, minmax(0, 1fr)); }
+  .features-label { grid-column: auto; padding-top: 16px; }
+}
+.feature { padding: 14px 16px 14px 0; border-bottom: 1px solid var(--line); }
+@media (min-width: 640px) and (max-width: 1039px) {
+  .feature:nth-of-type(even) { border-left: 1px solid var(--line); padding-left: 16px; }
+}
+@media (min-width: 1040px) {
+  .feature { border-bottom: 0; border-left: 1px solid var(--line); padding-left: 16px; }
+}
+.feature h3 { margin-bottom: 0.3em; }
+.feature p { margin: 0; color: var(--muted); font-size: 1rem; }
+
+/* ==========================================================================
+   Prices: one ruled price list. Every line the same weight.
+   ========================================================================== */
+
+.price-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 24px; }
+.price-head h2 { margin: 0; }
+.fine { margin: 0; color: var(--muted); font-size: 1rem; }
+.rates { margin-top: clamp(1.25rem, 3vw, 2rem); border-top: 2px solid var(--rule); border-bottom: 2px solid var(--rule); }
+.rate {
+  display: grid; gap: 8px 16px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: "name price" "body body" "act act";
+  padding: 18px 0;
+}
+.rate + .rate { border-top: 1px solid var(--line); }
+.rate h3 { grid-area: name; margin: 0; font-size: 1.2rem; align-self: baseline; }
+.rate-price { grid-area: price; margin: 0; display: flex; align-items: baseline; gap: 4px; justify-self: end; white-space: nowrap; }
+.rate-body { grid-area: body; min-width: 0; color: var(--muted); }
+.rate-body p { margin: 0; }
+.rate .btn { grid-area: act; justify-self: start; margin-top: 6px; }
+.amount { font-family: var(--font-display); font-stretch: 75%; font-weight: 700; font-size: 2.1rem; line-height: 1; color: var(--ink); }
+.per { font-family: var(--font-mono); font-size: 0.86rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ink); }
+.includes { list-style: none; margin: 8px 0 0; padding: 0; color: var(--ink); }
+.includes li { padding: 4px 0 4px 18px; border-top: 1px solid var(--line); position: relative; line-height: 1.4; }
+.includes li::before { content: ""; position: absolute; left: 0; top: 0.8em; width: 8px; height: 2px; background: var(--rule); }
+@media (min-width: 900px) {
+  .rate {
+    grid-template-columns: 13rem 9.5rem minmax(0, 1fr) 15rem;
+    grid-template-areas: "name price body act";
+    column-gap: 28px; align-items: start; padding: 22px 0;
+  }
+  .rate-price { justify-self: start; }
+  .rate .btn { justify-self: end; margin-top: 0; }
+  .includes { columns: 2; column-gap: 24px; }
+  .includes li { break-inside: avoid; }
+}
+@media (min-width: 900px) and (max-width: 1039px) {
+  .includes { columns: 1; }
+}
+
+/* ==========================================================================
+   Questions: ruled rows.
+   ========================================================================== */
+
+.faq-layout { display: grid; gap: 20px 56px; grid-template-columns: minmax(0, 1fr); align-items: start; }
+@media (min-width: 900px) {
+  .faq-layout { grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr); }
+  .faq-layout h2 { position: sticky; top: calc(var(--header-h) + 24px); max-width: 14ch; }
+}
+.faq-layout h2 { margin: 0; }
+.faq { display: grid; gap: 0; max-width: 820px; border-top: 2px solid var(--rule); }
+.faq details { border-bottom: 1px solid var(--line); }
+.faq summary {
+  position: relative; display: flex; align-items: center; min-height: 56px;
+  padding: 0.6rem 2.5rem 0.6rem 0; font-weight: 750; font-size: 1.05rem; line-height: 1.35;
+  cursor: pointer; list-style: none;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after {
+  content: "+"; position: absolute; right: 4px; top: 50%; margin-top: -0.75em;
+  font-family: var(--font-mono); font-size: 1.3rem; font-weight: 700; line-height: 1.5; color: var(--orange-text);
+}
+.faq details[open] summary::after { content: "\2212"; }
+.faq details p { margin: 0; padding: 0 0 1rem; color: var(--muted); }
+
+/* ==========================================================================
+   Trucking: the due dates as a filing card.
+   ========================================================================== */
+
+.trucking-layout { display: grid; gap: 28px 56px; grid-template-columns: minmax(0, 1fr); align-items: start; }
+@media (min-width: 900px) { .trucking-layout { grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr); } }
+.demo-copy p { color: var(--muted); max-width: 60ch; }
+.truck-art { position: relative; }
+@media (min-width: 900px) { .truck-art { padding-top: 0.5rem; } }
+.cal-card { background: var(--carbon); border: 2px solid var(--rule); padding: 12px 16px 14px; max-width: 320px; }
+.cal-title { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 0 0 8px; color: var(--ink); }
+.stamp { padding: 2px 8px; border: 2px solid var(--pen); color: var(--pen); white-space: nowrap; }
+.cal-card ul { list-style: none; margin: 0; padding: 0; }
+.cal-card li {
+  display: flex; align-items: center; gap: 10px; padding: 6px 0;
+  border-top: 1px solid var(--line); font-family: var(--font-mono); font-weight: 700; font-size: 1rem;
+}
+.cal-dot { width: 10px; height: 3px; background: var(--rule); flex: none; }
+
+/* Demo page (kept for other pages). */
+.demo-layout { display: grid; gap: 28px 48px; grid-template-columns: minmax(0, 1fr); align-items: start; }
+@media (min-width: 900px) { .demo-layout { grid-template-columns: minmax(0, 1fr) minmax(0, 420px); } }
+.demo-widget { min-width: 0; }
+.demo-frame { width: 100%; max-width: 420px; background: var(--sheet); border: 2px solid var(--rule); overflow: hidden; }
+.demo-frame iframe { display: block; width: 420px; max-width: 100%; height: 620px; border: 0; background: var(--sheet); }
+@media (max-width: 600px) {
+  .demo-frame { max-width: none; }
+  .demo-frame iframe { width: 100%; height: 560px; }
+}
+.card { background: var(--sheet); border: 2px solid var(--rule); padding: 1.4rem; }
+.note { margin-top: 0.9rem; color: var(--muted); font-size: 1rem; line-height: 1.5; }
+.demo-widget .note { max-width: 420px; }
+
+/* Also from Northclerk: a ruled list. */
+.lines { display: grid; gap: 0; grid-template-columns: minmax(0, 1fr); border-top: 2px solid var(--rule); margin-top: 1.5rem; }
+@media (min-width: 760px) { .lines { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 40px; } }
+.line { display: flex; flex-direction: column; gap: 0.3rem; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.line h3 { margin: 0; }
+.line p { margin: 0; color: var(--muted); }
+.line strong { color: var(--ink); font-weight: 800; white-space: nowrap; }
+
+/* ==========================================================================
+   The close: the form is the last thing on the page, a paper sheet on the
+   dark desk. No second hero line, nothing riding over a band edge.
+   ========================================================================== */
+
+.section-start { padding-block: clamp(2.75rem, 6vw, 4.5rem); background: var(--band-ink); color: var(--on-ink); }
+.start-layout { display: grid; gap: 24px 56px; grid-template-columns: minmax(0, 1fr); align-items: start; }
+@media (min-width: 900px) {
+  .start-layout { grid-template-columns: minmax(0, 1fr); row-gap: 28px; }
+  .start-copy { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); column-gap: 56px; align-items: end; }
+  .start-copy h2 { grid-row: 1 / span 2; margin-bottom: 0; }
+  .start-copy p { margin-bottom: 0; }
+}
+.start-copy h2 { margin-bottom: 0.9rem; color: var(--on-ink); max-width: 16ch; }
+.start-copy p { color: var(--on-ink-muted); max-width: 40ch; font-size: 1.08rem; }
+.start-copy .start-note {
+  margin-top: 1.25rem; padding-top: 12px; border-top: 2px solid var(--band-line);
+  color: var(--on-ink); font-size: 0.85rem;
+}
+
+.signup { padding: 1.5rem; background: var(--sheet); color: var(--ink); border: 3px solid var(--band-line); }
+.form-hint { margin-bottom: 1rem; color: var(--muted); font-size: 1rem; }
+.fields { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 620px) { .fields { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.field { min-width: 0; }
+.field label, .choices legend {
+  display: block; margin-bottom: 6px;
+  font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+}
+.field input, .field select {
+  display: block; width: 100%; min-height: 48px; padding: 0 12px;
+  font: inherit; color: var(--ink); background: var(--paper);
+  border: 2px solid var(--field-line); border-radius: 0;
+}
+.field input:focus-visible, .field select:focus-visible { outline: 3px solid var(--orange); outline-offset: 1px; border-color: var(--rule); }
+.field input[aria-invalid="true"] { border-color: var(--error); }
+.field-error { display: block; margin-top: 6px; color: var(--error); font-size: 1rem; font-weight: 700; }
+.field-error:empty { display: none; }
+.choices { display: grid; gap: 8px; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 1.5rem 0 0; padding: 0; border: 0; min-width: 0; }
+.choices legend { padding: 0; margin-bottom: 8px; }
+.choice {
+  display: flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 12px;
+  background: var(--paper); border: 2px solid var(--field-line); border-radius: 0; cursor: pointer;
+}
+.choice:has(input:checked) { border-color: var(--rule); background: var(--carbon); }
+.choice input { flex: none; width: 20px; height: 20px; margin: 0; accent-color: var(--orange); font: inherit; }
+.choice span { line-height: 1.3; }
+.submit-row { margin-top: 1.5rem; }
+.submit-row .btn { min-width: 160px; }
+.submit-row .note { margin-top: 0.9rem; }
+/* Wide screens: the form sheet runs the full width, three fields to a row, the button beside its note. */
+@media (min-width: 900px) {
+  .fields { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .choices { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .submit-row { display: flex; align-items: center; gap: 24px; }
+  .submit-row .note { margin-top: 0; max-width: 72ch; }
+}
+
+/* Footer. */
+.site-footer { padding-block: 1.5rem; border-top: 4px solid var(--rule); background: var(--paper-2); color: var(--muted); font-size: 1rem; }
+.footer-inner { display: flex; flex-wrap: wrap; align-items: center; gap: 0 24px; }
+.footer-inner p { margin: 0; display: flex; align-items: center; min-height: 44px; overflow-wrap: anywhere; }
+.footer-brand { color: var(--ink); font-family: var(--font-display); font-stretch: 75%; font-size: 1.3rem; text-transform: uppercase; }
+.footer-inner a { display: inline-flex; align-items: center; min-height: 44px; }
+
+/* ---------- Small screens ---------- */
+
+@media (max-width: 520px) {
+  .btn-row .btn { width: 100%; }
+  .btn-big { width: 100%; }
+  .card { padding: 1.15rem; }
+  .signup { padding: 1.1rem; }
+  .submit-row .btn { width: 100%; }
+  .rate .btn-primary { justify-self: stretch; }
+  .choices { grid-template-columns: minmax(0, 1fr); }
+  .board { padding: 30px 10px 10px; }
+  .sheet { padding: 12px 14px 18px; font-size: 0.9rem; }
+  .sheet-row { grid-template-columns: 74px minmax(0, 1fr); gap: 8px; padding: 6px 2px; }
+  .sheet-when { font-size: 0.8rem; }
+  .sheet-subject { font-size: 1.3rem; }
+  .hv { font-size: 0.8rem; }
+  .stub { padding: 10px 12px 12px; }
+  .cta-block { gap: 10px; }
+  .spike { max-width: 280px; }
+  .trades { row-gap: 3px; }
+  .trades::after { content: ""; flex-basis: 100%; height: 0; order: 1; }
+  .trades li:nth-child(n+4) { order: 2; }
+  .doc { padding: 12px 14px 14px; }
+}
